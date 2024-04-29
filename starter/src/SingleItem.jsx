@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import customFetch from "./utils";
-import { useState } from "react";
 
 const SingleItem = ({ item }) => {
   // Real Time update we'll go with the useQueryClient()
