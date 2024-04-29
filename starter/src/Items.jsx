@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import SingleItem from "./SingleItem";
 import customFetch from "./utils";
+
 const Items = () => {
   const { isLoading, data, isError, error } = useQuery({
     queryKey: ["tasks"],
-    queryFn: () => customFetch.get("/dummyNoRoute"),
+    queryFn: () => customFetch.get("/"),
   });
 
   // console.log(result);
