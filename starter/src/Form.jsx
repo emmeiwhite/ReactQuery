@@ -1,17 +1,25 @@
 import { useState } from "react";
 import customFetch from "./utils";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const Form = () => {
   const [newItemName, setNewItemName] = useState("");
 
   const { mutate: createTask, isLoading } = useMutation({
-    mutationFn: () => customFetch.post("/", { title: "New day is a new gift" }),
+    mutationFn: (task) => customFetch.post("/", { title: task }),
+    onError: (error) => {
+      toast.error(error.response.data.msg);
+    },
+    onSuccess: () => {
+      setNewItemName("");
+      toast.success("Task Added Successfully!");
+    },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createTask();
+    createTask(newItemName);
   };
 
   return (
@@ -26,7 +34,8 @@ const Form = () => {
         />
         <button
           type="submit"
-          className="btn"
+          className={isLoading ? "btn btn-disabled" : "btn"}
+          disabled={isLoading}
         >
           add task
         </button>
